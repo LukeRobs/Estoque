@@ -3,8 +3,8 @@ from django.db import models
 class TimeStampedModel(models.Model):
     created = models.DateTimeField(
         'criado em',
+         auto_now_add=True,
         auto_now=False,
-        auto_now_add=True
     )
     modified = models.DateTimeField(
         'modificado em',
