@@ -14,13 +14,13 @@
 {% endblock css %}
 {% block content %}
 
-<a href="{% url 'estoque:estoque_entrada_list' %}">Voltar</a>
+<a href="{% url 'estoque:estoque_saida_list' %}">Voltar</a>
 
 <div class="row">
     <div class="cols">
         <form method="POST" novalidate>
             {% csrf_token %}
-            <legend style="border-bottom: 1px solid #e5e5e5;">Estoque Entrada</legend>
+            <legend style="border-bottom: 1px solid #e5e5e5;">Estoque Saida</legend>
             <div class="row">
                 <div class="col-sm-6">
                     {% for field in form.visible_fields %}
@@ -66,7 +66,7 @@
                             <i class="fa fa-floppy-o"></i>
                             Salvar
                         </button>
-                        <a href="{% url 'estoque:estoque_entrada_list' %}" class="btn btn-danger">
+                        <a href="{% url 'estoque:estoque_saida_list' %}" class="btn btn-danger">
                             <i class="fa fa-times"></i>
                             Cancelar
                         </a>
@@ -81,7 +81,7 @@
 
 {% block js %}
 
-<script src="{% static 'js/estoque_entrada.js' %}"></script>
+<script src="{% static 'js/estoque_saida.js' %}"></script>
 
 
 <script type="text/html" id="item-estoque">
