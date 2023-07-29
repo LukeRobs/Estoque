@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse_lazy
 from core.models import TimeStampedModel
 from produto.models import Produto
+from .managers import EstoqueEntradaManager, EstoqueSaidaManager
 
 MOVIMENTO = (
     ('e', 'entrada'),
@@ -25,7 +26,28 @@ class Estoque(TimeStampedModel):
 
     def nf_formated(self):
         return str(self.nf).zfill(3)
+
+
+
+class EstoqueEntrada(Estoque):
     
+    objects = EstoqueEntradaManager()
+    class Meta:
+        proxy = True
+        verbose_name = "estoque entrada"
+        verbose_name_plural = "estoque entrada"
+    
+
+class EstoqueSaida(Estoque):
+
+    objects = EstoqueSaidaManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = "estoque saida"
+        verbose_name_plural = "estoque saida"
+
+
 class EstoqueItens(models.Model):
     estoque = models.ForeignKey(
         Estoque, 

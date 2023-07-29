@@ -46,6 +46,13 @@ produtos = (
     'Webcam',
     'Roteador',
     'Switch',
+    'Pendrive',
+    'Cabo de Rede',
+    'Caixa de som',
+    'Fone de ouvido',
+    'Toner de impressora',
+    'Mouse sem fio',
+    'Fonte',
     )
 
 tic = timeit.default_timer()
