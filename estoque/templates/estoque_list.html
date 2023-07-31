@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>Estoque {{ titulo}}
+<h2>Estoque {{ titulo }}
     <span class="pull-right">
         <a href="{% url url_add %}">
             <button type="button" class="btn btn-primary">
@@ -12,7 +12,7 @@
     </span>
 </h2>
 
-{% if estoque %}
+{% if object_list %}
     <table class="table table-striped">
         <thead>
             <tr>
@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for object in estoque %}
+            {% for object in object_list %}
             <tr>
                 <td>
                     <a href="{{ object.get_absolute_url }}">{{ object }}</a>
