@@ -43,14 +43,11 @@ def estoque_entrada_detail(request, pk):
     }
     return render(request, template_name, context)
 
-class EstoqueEntradaDetail(DetailView):
-    model = EstoqueEntrada
+
+class EstoqueDetail(DetailView):
+    model = Estoque
     template_name = 'estoque_detail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(EstoqueEntradaDetail, self).get_context_data(**kwargs)
-        context['url_list'] = 'estoque:estoque_entrada_list'
-        return context
 
 def dar_baixa_estoque(form):
     # get the products from the instance of the form (Inventory)
@@ -93,7 +90,7 @@ def estoque_add(request, template_name, movimento, url):
 def estoque_entrada_add(request):
     template_name = 'estoque_entrada_form.html'
     movimento = 'e'
-    url = 'estoque:estoque_entrada_detail'
+    url = 'estoque:estoque_detail'
     context = estoque_add(request, template_name, movimento, url)
     if context.get('pk'):
         return HttpResponseRedirect(resolve_url(url, context.get('pk')))
@@ -131,19 +128,11 @@ def estoque_saida_detail(request, pk):
         }
     return render(request, template_name, context)
 
-class EstoqueSaidaDetail(DetailView):
-    model = EstoqueSaida
-    template_name = 'estoque_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(EstoqueSaidaDetail, self).get_context_data(**kwargs)
-        context['url_list'] = 'estoque:estoque_saida_list'
-        return context
 
 def estoque_saida_add(request):
     template_name = 'estoque_saida_form.html'
     movimento = 's'
-    url = 'estoque:estoque_saida_detail'
+    url = 'estoque:estoque_detail'
     context = estoque_add(request, template_name, movimento, url)
     if context.get('pk'):
         return HttpResponseRedirect(resolve_url(url, context.get('pk')))

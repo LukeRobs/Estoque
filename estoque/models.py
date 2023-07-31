@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.urls import reverse_lazy
 from core.models import TimeStampedModel
 from produto.models import Produto
 from .managers import EstoqueEntradaManager, EstoqueSaidaManager
@@ -38,9 +37,7 @@ class EstoqueEntrada(Estoque):
         proxy = True
         verbose_name = "estoque entrada"
         verbose_name_plural = "estoque entrada"
-    
-    def get_absolute_url(self):
-        return reverse_lazy('estoque:estoque_entrada_detail', kwargs={'pk': self.pk})
+
 
 class EstoqueSaida(Estoque):
 
@@ -51,8 +48,6 @@ class EstoqueSaida(Estoque):
         verbose_name = "estoque saida"
         verbose_name_plural = "estoque saida"
 
-    def get_absolute_url(self):
-        return reverse_lazy('estoque:estoque_saida_detail', kwargs={'pk': self.pk})
 
 class EstoqueItens(models.Model):
     estoque = models.ForeignKey(
