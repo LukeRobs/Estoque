@@ -1,16 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
 from django.views.generic import ListView, DetailView
 from produto.models import Produto
-
+from .models import (Estoque, EstoqueEntrada, EstoqueSaida, EstoqueItens,)
 from .forms import EstoqueForm, EstoqueItensForm
-from .models import (
-    Estoque,
-    EstoqueEntrada,
-    EstoqueSaida,
-    EstoqueItens,
-)
 
 def estoque_entrada_list(request):
     template_name = 'estoque_list.html'
@@ -66,15 +61,20 @@ def estoque_add(request, template_name, movimento, url):
         EstoqueItens,
         form = EstoqueItensForm,
         extra = 0,
+        can_delete=False,
         min_num = 1,
         validate_min = True,
     )
     if request.method  == 'POST':
-        form = EstoqueForm(request.POST, instance = estoque_form, prefix = 'main')
-        formset = item_estoque_formset(request.POST, instance = estoque_form, prefix = 'estoque')
-
+        form = EstoqueForm(request.POST, instance=estoque_form, prefix='main')
+        formset = item_estoque_formset(
+            request.POST,
+            instance = estoque_form,
+            prefix = 'estoque'
+        )
         if form.is_valid() and formset.is_valid():
-            form = form.save()
+            form = form.save(commit=False)
+            form.funcionario = request.user
             form.movimento = movimento
             form.save()
             formset.save()
@@ -86,7 +86,7 @@ def estoque_add(request, template_name, movimento, url):
     context = {'form': form, 'formset': formset}
     return context
 
-
+@login_required
 def estoque_entrada_add(request):
     template_name = 'estoque_entrada_form.html'
     movimento = 'e'
@@ -128,7 +128,7 @@ def estoque_saida_detail(request, pk):
         }
     return render(request, template_name, context)
 
-
+@login_required
 def estoque_saida_add(request):
     template_name = 'estoque_saida_form.html'
     movimento = 's'

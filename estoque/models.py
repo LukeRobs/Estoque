@@ -10,7 +10,7 @@ MOVIMENTO = (
 )
 
 class Estoque(TimeStampedModel):
-    funcionario = models.ForeignKey(User, on_delete=models.CASCADE)
+    funcionario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     nf = models.PositiveBigIntegerField('nota fiscal', null=True, blank=True)
     movimento = models.CharField(max_length=1, choices=MOVIMENTO, blank=True)
 
@@ -57,7 +57,7 @@ class EstoqueItens(models.Model):
     )
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     quantidade = models.PositiveBigIntegerField()
-    saldo = models.PositiveBigIntegerField(default=0)
+    saldo = models.PositiveBigIntegerField(blank=True)
 
     class Meta:
         ordering = ('pk',)
