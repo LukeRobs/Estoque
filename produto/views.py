@@ -7,7 +7,9 @@ from .forms import ProdutoForm
 def produto_list(request):
     template_name = 'produto_list.html'
     objects = Produto.objects.all()
-    print(objects)
+    search = request.GET.get('search')
+    if search:
+        objects = objects.filter(produto=search)
     context = {'produtos': objects}
     return render(request, template_name, context)
 
